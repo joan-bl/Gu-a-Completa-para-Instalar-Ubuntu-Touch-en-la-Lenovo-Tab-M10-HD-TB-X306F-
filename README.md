@@ -1,6 +1,7 @@
 # Complete Guide: Installing Ubuntu Touch on Lenovo Tab M10 HD (TB-X306F)
 Disclaimer
-This port is for Lenovo Tab M10 HD (X306F) 4GB RAM 64 GB ROM and Lenovo Tab M10 HD (X306X). The 2GB version is not supported.
+
+This port is for Lenovo Tab M10 HD (X306F) 4GB RAM 64 GB ROM and Lenovo Tab M10 HD (X306X). The 2GB version is not supported. This guide and procedure was done with the 2GB model, thus it didn't work.
 
 ## Table of Contents
 1. [Introduction and Requirements](#introduction-and-requirements)
