@@ -1,4 +1,3 @@
-# Gu-a-Completa-para-Instalar-Ubuntu-Touch-en-la-Lenovo-Tab-M10-HD-TB-X306F-
 # Guía Completa: Instalación de Ubuntu Touch en Lenovo Tab M10 HD (TB-X306F)
 
 ## Tabla de Contenidos
@@ -50,13 +49,14 @@ Este documento proporciona una guía completa para instalar Ubuntu Touch en una 
 
 ## Instalación de Drivers y Herramientas
 
-### 1. Drivers USB MediaTek:
+### 1. Drivers USB MediaTek y Lenovo:
 
-Los drivers MediaTek son esenciales para que tu PC pueda comunicarse correctamente con la tablet en diferentes modos (normal, fastboot, recovery).
+Los drivers MediaTek y Lenovo son esenciales para que tu PC pueda comunicarse correctamente con la tablet en diferentes modos (normal, fastboot, recovery).
 
 1. Descarga los drivers USB MediaTek desde [este enlace](https://www.mediatek.com/products/smartphones/usb-drivers) o [Driver Easy](https://www.drivereasy.com/knowledge/download-and-install-mediatek-usb-drivers/)
-2. Instala los drivers en tu PC
-3. Reinicia el PC después de la instalación
+2. Descarga los drivers específicos de Lenovo para el modelo TB-X306F desde [el sitio oficial de Lenovo](https://pcsupport.lenovo.com)
+3. Instala ambos drivers en tu PC
+4. Reinicia el PC después de la instalación
 
 ### 2. Plataforma de Herramientas Android (ADB y Fastboot):
 
@@ -73,11 +73,13 @@ Los drivers MediaTek son esenciales para que tu PC pueda comunicarse correctamen
    fastboot --version
    ```
 
-### 3. SP Flash Tool (Herramienta Específica para MediaTek):
+### 3. SP Flash Tool y MTK Auth Bypass Tool (Herramientas Específicas para MediaTek):
 
 1. Descarga SP Flash Tool desde [spflashtool.org](https://spflashtool.org/) o [aquí](https://www.spflashtool.com/download)
 2. Extrae el contenido a una carpeta dedicada
 3. Busca la versión compatible con Windows (generalmente v5.1916 o posterior)
+4. Descarga MTK Auth Bypass Tool - esta herramienta puede ser necesaria si tienes problemas con el Secure Boot de tu dispositivo MediaTek
+5. Ten en cuenta que algunas versiones de SP Flash Tool funcionan mejor con ciertos dispositivos - si encuentras problemas, prueba con una versión diferente (como v5.1628 o v5.2128)
 
 ### 4. UBports Installer:
 
@@ -143,6 +145,8 @@ El bootloader es lo primero que se ejecuta cuando enciendes el dispositivo. Debe
 3. El dispositivo se reiniciará y borrará todos los datos durante este proceso
 
 **NOTA**: En algunos dispositivos Lenovo, es necesario obtener un código de desbloqueo del sitio oficial de Lenovo. Si los comandos anteriores no funcionan, visita el sitio de soporte de Lenovo para información específica sobre tu modelo.
+
+**IMPORTANTE**: Tu modelo TB-X306F tiene Secure Boot activado, lo que puede bloquear el proceso de desbloqueo estándar. Si los comandos normales de fastboot no funcionan, es posible que necesites usar MTK Auth Bypass Tool para superar esta protección. En casos extremos, también puedes intentar entrar manualmente en modo bootloader manteniendo presionados los botones de encendido + volumen hacia abajo mientras la tablet está apagada.
 
 ## Flasheo de Firmware Android 11 Stock
 
@@ -246,7 +250,17 @@ Una vez que el dispositivo tiene Android 11 stock y el bootloader desbloqueado, 
 - Verifica la conexión a internet
 - Intenta ejecutar el instalador como administrador
 - Verifica que el bootloader está realmente desbloqueado
+- Considera instalar un recovery personalizado manualmente antes de usar UBports Installer
 - Consulta la [comunidad de UBports](https://forums.ubports.com/) para asistencia específica
+
+### Problema 6: Bootloop después de instalar Ubuntu Touch
+
+**Solución**:
+- Entra en recovery mode (normalmente manteniendo presionado Power + Volumen arriba)
+- Realiza un factory reset desde el recovery
+- Si eso no funciona, reinstala Android 11 con SP Flash Tool
+- Asegúrate de que la versión de Ubuntu Touch es compatible con tu modelo específico
+- Intenta flashear un recovery personalizado antes de reinstalar Ubuntu Touch
 
 ## Alternativas si el Proceso Falla
 
@@ -283,6 +297,14 @@ Busca si hay una ROM de LineageOS compatible con tu dispositivo, que suele ser m
 - [Guía para desbloquear bootloader de Lenovo](https://unlocktechy.com/lenovo-tab-m10-hd-gen-2-unlock-bootloader)
 - [Drivers MediaTek USB](https://www.drivereasy.com/knowledge/download-and-install-mediatek-usb-drivers/)
 - [Comunidad de UBports](https://forums.ubports.com/)
+- [Guía oficial de Ubuntu Touch](https://ubuntu-touch.io/)
+- [XDA Developers - Foro General](https://xdaforums.com/)
+
+### Canales de Soporte en Tiempo Real
+
+Para obtener ayuda en tiempo real durante el proceso, considera unirte a estos grupos:
+- [Grupo de Telegram de UBports](https://t.me/ubports)
+- [Discord de UBports](https://discord.gg/3PFsCmZ)
 
 ---
 
