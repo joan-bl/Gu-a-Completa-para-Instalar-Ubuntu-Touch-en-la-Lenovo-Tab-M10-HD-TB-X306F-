@@ -1,0 +1,1 @@
+# Gu-a-Completa-para-Instalar-Ubuntu-Touch-en-la-Lenovo-Tab-M10-HD-TB-X306F-
