@@ -1,311 +1,309 @@
-# Guía Completa: Instalación de Ubuntu Touch en Lenovo Tab M10 HD (TB-X306F)
+# Complete Guide: Installing Ubuntu Touch on Lenovo Tab M10 HD (TB-X306F)
 
-## Tabla de Contenidos
-1. [Introducción y Requerimientos](#introducción-y-requerimientos)
-2. [Preparación del Dispositivo](#preparación-del-dispositivo)
-3. [Instalación de Drivers y Herramientas](#instalación-de-drivers-y-herramientas)
-4. [Desbloqueo del Bootloader](#desbloqueo-del-bootloader)
-5. [Flasheo de Firmware Android 11 Stock](#flasheo-de-firmware-android-11-stock)
-6. [Instalación de Ubuntu Touch](#instalación-de-ubuntu-touch)
-7. [Resolución de Problemas Comunes](#resolución-de-problemas-comunes)
-8. [Alternativas si el Proceso Falla](#alternativas-si-el-proceso-falla)
-9. [Referencias y Recursos Adicionales](#referencias-y-recursos-adicionales)
+## Table of Contents
+1. [Introduction and Requirements](#introduction-and-requirements)
+2. [Device Preparation](#device-preparation)
+3. [Installing Drivers and Tools](#installing-drivers-and-tools)
+4. [Bootloader Unlocking](#bootloader-unlocking)
+5. [Flashing Android 11 Stock Firmware](#flashing-android-11-stock-firmware)
+6. [Installing Ubuntu Touch](#installing-ubuntu-touch)
+7. [Troubleshooting Common Issues](#troubleshooting-common-issues)
+8. [Alternatives If the Process Fails](#alternatives-if-the-process-fails)
+9. [References and Additional Resources](#references-and-additional-resources)
 
-## Introducción y Requerimientos
+## Introduction and Requirements
 
-Este documento proporciona una guía completa para instalar Ubuntu Touch en una tablet Lenovo Tab M10 HD (modelo TB-X306F). El dispositivo utiliza un chipset MediaTek, lo que añade complejidad al proceso en comparación con otros dispositivos.
+This document provides a comprehensive guide for installing Ubuntu Touch on a Lenovo Tab M10 HD (model TB-X306F). This device uses a MediaTek chipset, which adds complexity to the process compared to other devices.
 
-### Requerimientos:
+### Requirements:
 
-- **Dispositivo**: Lenovo Tab M10 HD (TB-X306F) con batería cargada al menos al 50%
-- **Computadora**: Windows 10/11 (preferiblemente)
-- **Conexión USB**: Cable USB de buena calidad que soporte transferencia de datos
-- **Respaldo**: Realiza una copia de seguridad de tus datos importantes antes de comenzar
-- **Tiempo**: El proceso completo puede llevar entre 1-3 horas
-- **Riesgos**: Este proceso puede "brickear" (inutilizar) tu dispositivo si algo sale mal
+- **Device**: Lenovo Tab M10 HD (TB-X306F) with battery charged to at least 50%
+- **Computer**: Windows 10/11 (preferably)
+- **USB Connection**: Good quality USB cable that supports data transfer
+- **Backup**: Make a backup of your important data before starting
+- **Time**: The complete process may take between 1-3 hours
+- **Risks**: This process can "brick" (make unusable) your device if something goes wrong
 
-**NOTA IMPORTANTE**: Este proceso eliminará todos los datos de tu dispositivo. Asegúrate de hacer una copia de seguridad de cualquier información importante.
+**IMPORTANT NOTE**: This process will erase all data from your device. Make sure to back up any important information.
 
-## Preparación del Dispositivo
+## Device Preparation
 
-### 1. Activar Opciones de Desarrollador:
+### 1. Activate Developer Options:
 
-1. Ve a **Ajustes > Acerca del dispositivo**
-2. Toca 7 veces seguidas en **Número de compilación** hasta que aparezca el mensaje "Ya eres un desarrollador"
-3. Regresa a **Ajustes** y ahora verás una nueva opción llamada **Opciones de desarrollador**
+1. Go to **Settings > About device**
+2. Tap 7 times on **Build number** until the message "You are now a developer" appears
+3. Return to **Settings** and you will now see a new option called **Developer options**
 
-### 2. Configurar las Opciones de Desarrollador:
+### 2. Configure Developer Options:
 
-1. Ve a **Ajustes > Opciones de desarrollador**
-2. Activa **Desbloqueo OEM** (también llamado "OEM Unlocking")
-3. Activa **Depuración USB**
-4. Desactiva **Verificar aplicaciones por USB**
-5. En algunos dispositivos, es necesario también activar **Modo Fastboot**
+1. Go to **Settings > Developer options**
+2. Enable **OEM unlocking**
+3. Enable **USB debugging**
+4. Disable **Verify apps over USB**
+5. On some devices, it's also necessary to enable **Fastboot mode**
 
-### 3. Verificar Compatibilidad:
+### 3. Verify Compatibility:
 
-1. Asegúrate de que tu dispositivo es realmente el modelo TB-X306F
-2. En **Ajustes > Acerca del dispositivo**, verifica que tienes un procesador MediaTek
+1. Make sure your device is actually the TB-X306F model
+2. In **Settings > About device**, verify that you have a MediaTek processor
 
-## Instalación de Drivers y Herramientas
+## Installing Drivers and Tools
 
-### 1. Drivers USB MediaTek y Lenovo:
+### 1. MediaTek and Lenovo USB Drivers:
 
-Los drivers MediaTek y Lenovo son esenciales para que tu PC pueda comunicarse correctamente con la tablet en diferentes modos (normal, fastboot, recovery).
+MediaTek and Lenovo drivers are essential for your PC to communicate correctly with the tablet in different modes (normal, fastboot, recovery).
 
-1. Descarga los drivers USB MediaTek desde [este enlace](https://www.mediatek.com/products/smartphones/usb-drivers) o [Driver Easy](https://www.drivereasy.com/knowledge/download-and-install-mediatek-usb-drivers/)
-2. Descarga los drivers específicos de Lenovo para el modelo TB-X306F desde [el sitio oficial de Lenovo](https://pcsupport.lenovo.com)
-3. Instala ambos drivers en tu PC
-4. Reinicia el PC después de la instalación
+1. Download MediaTek USB drivers from [this link](https://www.mediatek.com/products/smartphones/usb-drivers) or [Driver Easy](https://www.drivereasy.com/knowledge/download-and-install-mediatek-usb-drivers/)
+2. Download specific Lenovo drivers for the TB-X306F model from [Lenovo's official website](https://pcsupport.lenovo.com)
+3. Install both drivers on your PC
+4. Restart your PC after installation
 
-### 2. Plataforma de Herramientas Android (ADB y Fastboot):
+### 2. Android Platform Tools (ADB and Fastboot):
 
-1. Descarga la versión oficial de Android Platform Tools desde [aquí](https://developer.android.com/tools/releases/platform-tools)
-2. Extrae el contenido a una ubicación fácil de recordar (ej. C:\android-sdk)
-3. Añade la ruta a las variables de entorno:
-   - Busca "variables de entorno" en Windows
-   - Edita la variable PATH
-   - Añade la ruta donde extrajiste las herramientas (ej: C:\android-sdk\platform-tools)
-4. Abre una nueva ventana de Command Prompt (cmd) como administrador
-5. Verifica la instalación con:
+1. Download the official version of Android Platform Tools from [here](https://developer.android.com/tools/releases/platform-tools)
+2. Extract the contents to an easy-to-remember location (e.g., C:\android-sdk)
+3. Add the path to the environment variables:
+   - Search for "environment variables" in Windows
+   - Edit the PATH variable
+   - Add the path where you extracted the tools (e.g., C:\android-sdk\platform-tools)
+4. Open a new Command Prompt (cmd) window as administrator
+5. Verify the installation with:
    ```
    adb version
    fastboot --version
    ```
 
-### 3. SP Flash Tool y MTK Auth Bypass Tool (Herramientas Específicas para MediaTek):
+### 3. SP Flash Tool and MTK Auth Bypass Tool (Specific Tools for MediaTek):
 
-1. Descarga SP Flash Tool desde [spflashtool.org](https://spflashtool.org/) o [aquí](https://www.spflashtool.com/download)
-2. Extrae el contenido a una carpeta dedicada
-3. Busca la versión compatible con Windows (generalmente v5.1916 o posterior)
-4. Descarga MTK Auth Bypass Tool - esta herramienta puede ser necesaria si tienes problemas con el Secure Boot de tu dispositivo MediaTek
-5. Ten en cuenta que algunas versiones de SP Flash Tool funcionan mejor con ciertos dispositivos - si encuentras problemas, prueba con una versión diferente (como v5.1628 o v5.2128)
+1. Download SP Flash Tool from [spflashtool.org](https://spflashtool.org/) or [here](https://www.spflashtool.com/download)
+2. Extract the contents to a dedicated folder
+3. Look for the version compatible with Windows (generally v5.1916 or later)
+4. Download MTK Auth Bypass Tool - this tool may be needed if you have problems with Secure Boot on your MediaTek device
+5. Note that some versions of SP Flash Tool work better with certain devices - if you encounter problems, try a different version (such as v5.1628 or v5.2128)
 
 ### 4. UBports Installer:
 
-1. Descarga UBports Installer desde [devices.ubuntu-touch.io/installer](https://devices.ubuntu-touch.io/installer/)
-2. Instala la aplicación siguiendo las instrucciones del instalador
+1. Download UBports Installer from [devices.ubuntu-touch.io/installer](https://devices.ubuntu-touch.io/installer/)
+2. Install the application following the installer's instructions
 
-## Desbloqueo del Bootloader
+## Bootloader Unlocking
 
-El bootloader es lo primero que se ejecuta cuando enciendes el dispositivo. Debe desbloquearse para poder instalar sistemas operativos alternativos.
+The bootloader is the first thing that runs when you turn on the device. It must be unlocked to install alternative operating systems.
 
-### 1. Preparar el PC y el dispositivo:
+### 1. Prepare the PC and the device:
 
-1. Conecta la tablet al PC mediante cable USB
-2. Asegúrate de que la depuración USB esté activada
-3. Cuando aparezca el mensaje "¿Permitir depuración USB?", marca "Siempre permitir desde este equipo" y toca "Permitir"
-4. Abre una ventana de Command Prompt como administrador
+1. Connect the tablet to the PC via USB cable
+2. Make sure USB debugging is enabled
+3. When the "Allow USB debugging?" message appears, check "Always allow from this computer" and tap "Allow"
+4. Open a Command Prompt window as administrator
 
-### 2. Verificar la conexión ADB:
+### 2. Verify ADB connection:
 
-1. Ejecuta:
+1. Run:
    ```
    adb devices
    ```
-2. Deberías ver tu dispositivo listado con la palabra "device" al lado (no "unauthorized")
+2. You should see your device listed with the word "device" next to it (not "unauthorized")
 
-### 3. Reiniciar en modo Bootloader:
+### 3. Restart in Bootloader mode:
 
-1. Ejecuta:
+1. Run:
    ```
    adb reboot bootloader
    ```
-2. La tablet se reiniciará y mostrará una pantalla con "FASTBOOT mode..." o similar
+2. The tablet will restart and show a screen with "FASTBOOT mode..." or similar
 
-### 4. Verificar conexión en modo Fastboot:
+### 4. Verify connection in Fastboot mode:
 
-1. Ejecuta:
+1. Run:
    ```
    fastboot devices
    ```
-2. Deberías ver tu dispositivo listado
+2. You should see your device listed
 
-**NOTA**: Si el dispositivo no aparece en fastboot devices, pero aparece en el Administrador de dispositivos de Windows (posiblemente como "Android" con una advertencia amarilla), debes instalar el controlador correcto:
+**NOTE**: If the device doesn't appear in fastboot devices, but appears in the Windows Device Manager (possibly as "Android" with a yellow warning), you need to install the correct driver:
    
-1. Abre el Administrador de dispositivos
-2. Localiza el dispositivo (probablemente aparezca como "Android" con una advertencia)
-3. Haz clic derecho y selecciona "Actualizar controlador"
-4. Selecciona "Buscar controladores en mi equipo"
-5. Selecciona "Elegir de una lista de controladores disponibles en mi equipo"
-6. Selecciona "Android Bootloader Interface" o un controlador similar
+1. Open Device Manager
+2. Locate the device (it will probably appear as "Android" with a warning)
+3. Right-click and select "Update driver"
+4. Select "Browse my computer for drivers"
+5. Select "Let me pick from a list of available drivers on my computer"
+6. Select "Android Bootloader Interface" or a similar driver
 
-### 5. Desbloquear el Bootloader:
+### 5. Unlock the Bootloader:
 
-1. Ejecuta uno de estos comandos (diferentes dispositivos usan diferentes comandos):
+1. Run one of these commands (different devices use different commands):
    ```
    fastboot oem unlock
    ```
-   O:
+   Or:
    ```
    fastboot flashing unlock
    ```
 
-2. En la pantalla de la tablet, usa los botones de volumen para navegar y el botón de encendido para confirmar el desbloqueo
-3. El dispositivo se reiniciará y borrará todos los datos durante este proceso
+2. On the tablet screen, use the volume buttons to navigate and the power button to confirm the unlock
+3. The device will restart and erase all data during this process
 
-**NOTA**: En algunos dispositivos Lenovo, es necesario obtener un código de desbloqueo del sitio oficial de Lenovo. Si los comandos anteriores no funcionan, visita el sitio de soporte de Lenovo para información específica sobre tu modelo.
+**NOTE**: On some Lenovo devices, you need to obtain an unlock code from Lenovo's official website. If the previous commands don't work, visit Lenovo's support site for information specific to your model.
 
-**IMPORTANTE**: Tu modelo TB-X306F tiene Secure Boot activado, lo que puede bloquear el proceso de desbloqueo estándar. Si los comandos normales de fastboot no funcionan, es posible que necesites usar MTK Auth Bypass Tool para superar esta protección. En casos extremos, también puedes intentar entrar manualmente en modo bootloader manteniendo presionados los botones de encendido + volumen hacia abajo mientras la tablet está apagada.
+**IMPORTANT**: Your TB-X306F model has Secure Boot enabled, which may block the standard unlocking process. If normal fastboot commands don't work, you may need to use MTK Auth Bypass Tool to overcome this protection. In extreme cases, you can also try to manually enter bootloader mode by holding down the power + volume down buttons while the tablet is off.
 
-## Flasheo de Firmware Android 11 Stock
+## Flashing Android 11 Stock Firmware
 
-Según la documentación de UBports, se requiere tener Android 11 stock antes de instalar Ubuntu Touch.
+According to UBports documentation, you need to have Android 11 stock before installing Ubuntu Touch.
 
-### 1. Obtener el firmware:
+### 1. Obtain the firmware:
 
-1. Descarga el firmware Stock Android 11 para TB-X306F. Puedes encontrarlo en:
-   - [Repositorio de la comunidad UBports](https://gitlab.com/ubports/porting/community-ports/android11/lenovo-tab-m10-hd/lenovo-m10-hd)
-   - [Sitio oficial de Lenovo](https://pcsupport.lenovo.com/downloads/DS548918)
+1. Download the Android 11 Stock firmware for TB-X306F. You can find it at:
+   - [UBports community repository](https://gitlab.com/ubports/porting/community-ports/android11/lenovo-tab-m10-hd/lenovo-m10-hd)
+   - [Lenovo's official website](https://pcsupport.lenovo.com/downloads/DS548918)
 
-2. Extrae el contenido a una carpeta dedicada
+2. Extract the contents to a dedicated folder
 
-### 2. Preparar SP Flash Tool:
+### 2. Flash the firmware:
 
-1. Abre SP Flash Tool (ejecuta Flash_tool.exe como administrador)
-2. En la interfaz de SP Flash Tool:
-   - Haz clic en la pestaña "Download"
-   - Haz clic en "Scatter-loading" y selecciona el archivo scatter.txt o MT6762_Android_scatter.txt del firmware que descargaste
-   - Asegúrate de que todas las particiones están seleccionadas
-   - Selecciona "Download Only" en el menú desplegable
+1. Open SP Flash Tool (run flash_tool.exe as administrator)
+2. In the SP Flash Tool interface:
+   - In "Download-Agent", select the DA.bin file that comes with the tool
+   - Click on "Scatter-loading" and select the scatter.txt or MT6762_Android_scatter.txt file from the firmware you downloaded
+   - Mark the necessary partitions (normally, preloader, system, boot, recovery)
+   - Select "Download Only" in the dropdown menu
 
-### 3. Flashear el firmware:
+3. Turn off the tablet completely
+4. Click the "Download" button in SP Flash Tool
+5. Connect the tablet to the PC while it's off
+6. SP Flash Tool should automatically detect the device and begin flashing
+7. Wait for the process to finish (a green circle with "Download OK" will appear when complete)
+8. The tablet will restart automatically
 
-1. Apaga completamente la tablet
-2. Haz clic en el botón "Download" en SP Flash Tool
-3. Conecta la tablet al PC mientras está apagada
-4. SP Flash Tool debería detectar el dispositivo automáticamente y comenzar a flashear
-5. Espera a que el proceso termine (aparecerá un círculo verde con "Download OK" cuando se complete)
-6. La tablet se reiniciará automáticamente
+**NOTE**: If SP Flash Tool doesn't detect the device, try different USB cables, USB ports, or reinstall the MediaTek drivers. Also make sure to use the correct version of SP Flash Tool, as some versions work better with certain devices.
 
-**NOTA**: Si SP Flash Tool no detecta el dispositivo, prueba con diferentes cables USB, puertos USB, o reinstala los drivers MediaTek.
+## Installing Ubuntu Touch
 
-## Instalación de Ubuntu Touch
+Once the device has Android 11 stock and the bootloader unlocked, we can install Ubuntu Touch.
 
-Una vez que el dispositivo tiene Android 11 stock y el bootloader desbloqueado, podemos instalar Ubuntu Touch.
+### 1. Prepare the device:
 
-### 1. Preparar el dispositivo:
+1. Make sure the device has at least 50% battery
+2. Reactivate Developer options and USB Debugging in Android 11
+3. Connect the device to the PC
 
-1. Asegúrate de que el dispositivo tiene al menos 50% de batería
-2. Activa nuevamente las Opciones de desarrollador y la Depuración USB en Android 11
-3. Conecta el dispositivo al PC
+### 2. Use UBports Installer:
 
-### 2. Usar UBports Installer:
+1. Open UBports Installer
+2. The installer should automatically detect your device as "Lenovo Tab M10 HD (TB-X306F)"
+3. Follow the on-screen instructions to install Ubuntu Touch
+4. The installer will guide you through the different steps, which may include:
+   - Restarting in fastboot mode
+   - Installing a custom recovery
+   - Installing the Ubuntu Touch system
+   - Initial setup
 
-1. Abre UBports Installer
-2. El instalador debería detectar automáticamente tu dispositivo como "Lenovo Tab M10 HD (TB-X306F)"
-3. Sigue las instrucciones en pantalla para instalar Ubuntu Touch
-4. El instalador te guiará a través de los diferentes pasos, que pueden incluir:
-   - Reinicio en modo fastboot
-   - Instalación de una recovery personalizada
-   - Instalación del sistema Ubuntu Touch
-   - Configuración inicial
+5. Do not disconnect the device during the entire process
 
-5. No desconectes el dispositivo durante todo el proceso
+### 3. Initial Ubuntu Touch setup:
 
-### 3. Configuración inicial de Ubuntu Touch:
+1. Once the installation is complete, the tablet will restart into Ubuntu Touch
+2. Follow the initial setup wizard to configure Wi-Fi, language, etc.
 
-1. Una vez completada la instalación, la tablet se reiniciará en Ubuntu Touch
-2. Sigue el asistente de configuración inicial para configurar Wi-Fi, idioma, etc.
+## Troubleshooting Common Issues
 
-## Resolución de Problemas Comunes
+### Issue 1: ADB doesn't detect the device
 
-### Problema 1: ADB no detecta el dispositivo
+**Solution**:
+- Verify that USB debugging is enabled
+- Accept the allow USB debugging message on the tablet
+- Try different USB cables
+- Reinstall the drivers
+- Restart both the tablet and the PC
 
-**Solución**:
-- Verifica que la depuración USB esté activada
-- Acepta el mensaje de permitir depuración USB en la tablet
-- Prueba con diferentes cables USB
-- Reinstala los drivers
-- Reinicia tanto la tablet como el PC
+### Issue 2: Fastboot doesn't detect the device
 
-### Problema 2: Fastboot no detecta el dispositivo
+**Solution**:
+- Check in Device Manager if it appears with a yellow warning
+- Manually install the correct drivers as explained earlier
+- Try the `adb reboot bootloader` command from normal mode
+- Try holding down the volume and power buttons to manually enter fastboot
 
-**Solución**:
-- Verifica en el Administrador de dispositivos si aparece con una advertencia amarilla
-- Instala los controladores correctos manualmente como se explicó anteriormente
-- Prueba con el comando `adb reboot bootloader` desde el modo normal
-- Intenta mantener presionados los botones de volumen y encendido para entrar en fastboot manualmente
+### Issue 3: SP Flash Tool doesn't detect the device
 
-### Problema 3: SP Flash Tool no detecta el dispositivo
+**Solution**:
+- Make sure the tablet is completely off before connecting it
+- Use a different USB port (preferably USB 2.0)
+- Reinstall the MediaTek drivers
+- Try a different version of SP Flash Tool
+- Check the specific guide at [this link](https://gist.github.com/thekosmix/1a7fc2308e9c9ea78bb4ad24bc0cda1a)
 
-**Solución**:
-- Asegúrate de que la tablet está completamente apagada antes de conectarla
-- Usa un puerto USB diferente (preferiblemente USB 2.0)
-- Reinstala los drivers MediaTek
-- Prueba una versión diferente de SP Flash Tool
-- Consulta la guía específica en [este enlace](https://gist.github.com/thekosmix/1a7fc2308e9c9ea78bb4ad24bc0cda1a)
+### Issue 4: Error during flashing
 
-### Problema 4: Error durante el flasheo
+**Solution**:
+- Make sure you're using the correct firmware for your specific model
+- Verify that all partitions are correctly selected
+- Try flashing only the essential partitions
+- Check XDA forums for solutions specific to your error
 
-**Solución**:
-- Asegúrate de usar el firmware correcto para tu modelo específico
-- Verifica que todas las particiones están seleccionadas correctamente
-- Intenta flashear solo las particiones esenciales
-- Consulta los foros de XDA para soluciones específicas a tu error
+### Issue 5: UBports Installer gets stuck
 
-### Problema 5: UBports Installer se queda atascado
+**Solution**:
+- Verify internet connection
+- Try running the installer as administrator
+- Verify that the bootloader is really unlocked
+- Consider manually installing a custom recovery before using UBports Installer
+- Check the [UBports community](https://forums.ubports.com/) for specific assistance
 
-**Solución**:
-- Verifica la conexión a internet
-- Intenta ejecutar el instalador como administrador
-- Verifica que el bootloader está realmente desbloqueado
-- Considera instalar un recovery personalizado manualmente antes de usar UBports Installer
-- Consulta la [comunidad de UBports](https://forums.ubports.com/) para asistencia específica
+### Issue 6: Bootloop after installing Ubuntu Touch
 
-### Problema 6: Bootloop después de instalar Ubuntu Touch
+**Solution**:
+- Enter recovery mode (normally by holding Power + Volume up)
+- Perform a factory reset from recovery
+- If that doesn't work, reinstall Android 11 with SP Flash Tool
+- Make sure the Ubuntu Touch version is compatible with your specific model
+- Try flashing a custom recovery before reinstalling Ubuntu Touch
 
-**Solución**:
-- Entra en recovery mode (normalmente manteniendo presionado Power + Volumen arriba)
-- Realiza un factory reset desde el recovery
-- Si eso no funciona, reinstala Android 11 con SP Flash Tool
-- Asegúrate de que la versión de Ubuntu Touch es compatible con tu modelo específico
-- Intenta flashear un recovery personalizado antes de reinstalar Ubuntu Touch
+## Alternatives If the Process Fails
 
-## Alternativas si el Proceso Falla
+If after several attempts you can't install Ubuntu Touch, consider these alternatives:
 
-Si después de varios intentos no puedes instalar Ubuntu Touch, considera estas alternativas:
+### 1. Optimize existing Android:
 
-### 1. Optimizar Android existente:
+1. Perform a factory reset
+2. Uninstall non-essential applications (bloatware)
+3. Use a lightweight launcher like Nova Launcher
+4. Disable animations and visual effects
 
-1. Realiza un restablecimiento de fábrica
-2. Desinstala aplicaciones no esenciales (bloatware)
-3. Usa un launcher ligero como Nova Launcher
-4. Desactiva animaciones y efectos visuales
+### 2. Python programming environment on Android:
 
-### 2. Entorno de programación Python en Android:
-
-1. Instala Termux desde la Play Store
-2. Dentro de Termux, ejecuta:
+1. Install Termux from the Play Store
+2. Inside Termux, run:
    ```
    pkg update
    pkg upgrade
    pkg install python
    ```
-3. Complementa con Pydroid 3 para un IDE más completo
+3. Complement with Pydroid 3 for a more complete IDE
 
-### 3. LineageOS u otras ROM alternativas:
+### 3. LineageOS or other alternative ROMs:
 
-Busca si hay una ROM de LineageOS compatible con tu dispositivo, que suele ser más ligera que la ROM stock.
+Look for a LineageOS ROM compatible with your device, which is usually lighter than the stock ROM.
 
-## Referencias y Recursos Adicionales
+## References and Additional Resources
 
-- [Repositorio oficial del port para Lenovo Tab M10 HD](https://gitlab.com/ubports/porting/community-ports/android11/lenovo-tab-m10-hd/lenovo-m10-hd)
-- [Guía de SP Flash Tool](https://spflashtool.org/)
-- [Foros XDA para TB-X306F](https://xdaforums.com/t/lenovo-tb-x306f-how-to-root-and-flash-recovery-help.4236557/)
-- [Solución a problemas con SP Flash Tool](https://gist.github.com/thekosmix/1a7fc2308e9c9ea78bb4ad24bc0cda1a)
-- [Guía para desbloquear bootloader de Lenovo](https://unlocktechy.com/lenovo-tab-m10-hd-gen-2-unlock-bootloader)
-- [Drivers MediaTek USB](https://www.drivereasy.com/knowledge/download-and-install-mediatek-usb-drivers/)
-- [Comunidad de UBports](https://forums.ubports.com/)
-- [Guía oficial de Ubuntu Touch](https://ubuntu-touch.io/)
-- [XDA Developers - Foro General](https://xdaforums.com/)
+- [Official repository for Lenovo Tab M10 HD port](https://gitlab.com/ubports/porting/community-ports/android11/lenovo-tab-m10-hd/lenovo-m10-hd)
+- [SP Flash Tool guide](https://spflashtool.org/)
+- [XDA Forums for TB-X306F](https://xdaforums.com/t/lenovo-tb-x306f-how-to-root-and-flash-recovery-help.4236557/)
+- [SP Flash Tool troubleshooting](https://gist.github.com/thekosmix/1a7fc2308e9c9ea78bb4ad24bc0cda1a)
+- [Lenovo bootloader unlock guide](https://unlocktechy.com/lenovo-tab-m10-hd-gen-2-unlock-bootloader)
+- [MediaTek USB Drivers](https://www.drivereasy.com/knowledge/download-and-install-mediatek-usb-drivers/)
+- [UBports Community](https://forums.ubports.com/)
+- [Official Ubuntu Touch guide](https://ubuntu-touch.io/)
+- [XDA Developers - General Forum](https://xdaforums.com/)
 
-### Canales de Soporte en Tiempo Real
+### Real-Time Support Channels
 
-Para obtener ayuda en tiempo real durante el proceso, considera unirte a estos grupos:
-- [Grupo de Telegram de UBports](https://t.me/ubports)
-- [Discord de UBports](https://discord.gg/3PFsCmZ)
+For real-time help during the process, consider joining these groups:
+- [UBports Telegram Group](https://t.me/ubports)
+- [UBports Discord](https://discord.gg/3PFsCmZ)
 
 ---
 
-**NOTA FINAL**: Este proceso implica riesgos y tu dispositivo podría quedar inutilizable si algo sale mal. Realiza una copia de seguridad de todos tus datos importantes antes de comenzar. Si no tienes experiencia con estos procedimientos, considera buscar ayuda en foros especializados o comunidades como XDA Developers o UBports.
+**FINAL NOTE**: This process involves risks and your device could become unusable if something goes wrong. Back up all your important data before starting. If you don't have experience with these procedures, consider seeking help in specialized forums or communities such as XDA Developers or UBports.
